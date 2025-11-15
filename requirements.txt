@@ -1,0 +1,16 @@
+tweepy==4.14.0
+praw==7.7.0
+google-cloud-storage==2.12.0
+google-cloud-bigquery==3.14.0
+google-cloud-pubsub==2.20.0
+google-cloud-secret-manager==2.13.0
+google-cloud-scheduler==2.6.0
+google-cloud-functions==1.10.0
+langdetect==1.0.9
+vaderSentiment==3.3.2
+transformers==4.41.2
+torch==2.3.0
+scikit-learn==1.5.0
+fairlearn==0.13.0
+requests==2.32.3
+functions-framework==3.5.0
