@@ -34,3 +34,51 @@ python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
+Digital-World-Mental-Health-Monitor/
+│
+├─ .github/
+│   └─ workflows/
+│       └─ ci.yml                 # Lint + pytest (unchanged)
+│
+├─ data/                           # local storage – CSV/JSON files
+│   ├─ raw/                        # raw Twitter & Reddit JSON blobs (saved by collector)
+│   ├─ cleaned/                    # cleaned CSV files
+│   └─ db/                         # SQLite DB (optional) – holds scored rows & aggregates
+│
+├─ src/
+│   ├─ collector/
+│   │   ├─ twitter_collector.py   # writes JSON to data/raw/
+│   │   └─ reddit_collector.py    # writes JSON to data/raw/
+│   │
+│   ├─ cleaning/
+│   │   └─ clean.py               # de‑dup, language filter → CSV in data/cleaned/
+│   │
+│   ├─ scoring/
+│   │   ├─ vader_score.py
+│   │   ├─ bert_score.py          # optional – loads a local .pt model
+│   │   ├─ combine_score.py
+│   │   └─ score_posts.py         # reads cleaned CSV, writes to SQLite table `scored`
+│   │
+│   ├─ aggregation/
+│   │   └─ aggregate.py           # creates daily aggregates in SQLite, writes CSV for reporting
+│   │
+│   ├─ alert/
+│   │   └─ send_alert.py          # reads aggregates, fires Slack/E‑mail if thresholds breached
+│   │
+│   └─ orchestrator.py            # top‑level script that calls the above steps in order
+│
+├─ tests/
+│   ├─ test_collector.py
+│   ├─ test_clean.py
+│   └─ test_scoring.py
+│
+├─ docs/
+│   ├─ architecture.png           # updated diagram (local‑file‑system flow)
+│   ├─ model_roc.png
+│   ├─ slack_alert.png
+│   └─ dashboard.png
+│
+├─ requirements.txt
+├─ README.md
+├─ LICENSE
+└─ schedule.sh                    # simple cron wrapper (Linux/macOS) or run_all.bat (Windows)
