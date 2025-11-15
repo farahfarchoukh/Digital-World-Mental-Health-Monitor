@@ -1,0 +1,16 @@
+data/
+    raw/            # JSON blobs from Twitter/Reddit
+    cleaned/        # CSV after cleaning
+    db/monitor.db   # SQLite DB with scored rows
+    aggregates/     # daily_agg.csv used for alerts
+src/
+    collector/      # Twitter & Reddit collectors
+    cleaning/       # cleaning script
+    scoring/        # VADER, optional BERT, combine, scoring
+    aggregation/    # daily aggregation
+    alert/          # Slack/E‑mail alert
+    orchestrator.py # runs everything in order
+schedule.sh          # cron wrapper
+README.md
+requirements.txt
+LICENSE
